@@ -1,5 +1,5 @@
 {
-    "build": "go build -o main ./cmd",
-    "start": "./main"
+    "buildCommand": "go build -o out ./cmd",
+    "startCommand": "./out"
 }
   
