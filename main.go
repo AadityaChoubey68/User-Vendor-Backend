@@ -41,13 +41,13 @@ func main() {
 	})
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080" // fallback if PORT not set
+		port = "8082" // fallback if PORT not set
 	}
 	server := http.Server{
-		Addr:    ":" + port,
+		Addr:    "0.0.0.0:" + port,
 		Handler: router,
 	}
-	fmt.Println("🚀 Server started on Port : localhost:8082")
+	fmt.Println("🚀 Server started on Port : " + port)
 	err = server.ListenAndServe()
 	if err != nil {
 		log.Fatal("❌ Failer to start server")
