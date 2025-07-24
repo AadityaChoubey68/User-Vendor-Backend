@@ -41,7 +41,7 @@ func main() {
 	})
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8082" // fallback if PORT not set
+		port = "8080" // fallback if PORT not set
 	}
 	server := http.Server{
 		Addr:    "0.0.0.0:" + port,
