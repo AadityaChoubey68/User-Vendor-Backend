@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/AadityaChoubey68/user-vendor-dashboard/driver"
 	"github.com/AadityaChoubey68/user-vendor-dashboard/handler"
@@ -19,6 +20,7 @@ func main() {
 	if err != nil {
 		log.Fatal("❌ Error loading .env file")
 	}
+
 	defer driver.CloseDB()
 	driver.ConnectDB()
 	db := driver.GetDB()
@@ -37,9 +39,12 @@ func main() {
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "✅ Server is working! Hello from the root route.")
 	})
-
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // fallback if PORT not set
+	}
 	server := http.Server{
-		Addr:    "localhost:8082",
+		Addr:    ":" + port,
 		Handler: router,
 	}
 	fmt.Println("🚀 Server started on Port : localhost:8082")
