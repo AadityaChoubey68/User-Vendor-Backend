@@ -1,5 +1,7 @@
 {
-    "buildCommand": "GOOS=linux GOARCH=amd64 go build -o out ./cmd",
-    "startCommand": "./out"
-}
+    "build": {
+      "command": "go build -o out ."
+    },
+    "start": "./out"
+  }
   
