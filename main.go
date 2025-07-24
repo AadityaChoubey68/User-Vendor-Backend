@@ -11,6 +11,7 @@ import (
 	"github.com/AadityaChoubey68/user-vendor-dashboard/routes"
 	"github.com/AadityaChoubey68/user-vendor-dashboard/service"
 	"github.com/AadityaChoubey68/user-vendor-dashboard/storage"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 )
@@ -43,9 +44,15 @@ func main() {
 	if port == "" {
 		port = "8080" // fallback if PORT not set
 	}
+
+	corsHandler := handlers.CORS(
+		handlers.AllowedOrigins([]string{"*"}), // Or use your frontend URL
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
+	)
 	server := http.Server{
 		Addr:    "0.0.0.0:" + port,
-		Handler: router,
+		Handler: corsHandler(router),
 	}
 	fmt.Println("🚀 Server started on Port : " + port)
 	err = server.ListenAndServe()
